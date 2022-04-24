@@ -1,5 +1,4 @@
 class GraphNode {
-    
     var data: String
     var neighboringNodes: [GraphNode]
     
@@ -18,11 +17,13 @@ class GraphNode {
         }
     }
 }
+
 extension GraphNode: Equatable {
     static func == (lhs: GraphNode, rhs: GraphNode) -> Bool {
         return lhs === rhs
     }
 }
+
 extension GraphNode: CustomStringConvertible {
     var description: String {
         return "\(data)"
@@ -189,6 +190,6 @@ graph.addEdge(from: start, to: b, isBidirectional: false)
 graph.addEdge(from: start, to: c, isBidirectional: false)
 graph.addEdge(from: a, to: c, isBidirectional: false)
 graph.addEdge(from: b, to: c, isBidirectional: true)
- 
+
 let search = graph.dfs(startingAt: start)
 print(search)

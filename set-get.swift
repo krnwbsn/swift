@@ -1,18 +1,20 @@
 struct Office {
-    var paperclipCost = 10
-    private var paperclipSales: Int {
+    let paperclipCost = 10
+    static var paperclipSalesRecord: Int = 0
+    
+    private var paperclipSales: Int  {
         willSet {
-            print("We adjusted the sales to \(newValue) paperclips.")
+            print("We adjusted the sales to \(newValue) paperclips")
+            if newValue > Office.paperclipSalesRecord {
+                Office.paperclipSalesRecord = newValue
+            }
         }
-        didSet(oldSales) {
-            print("Originally, we sold \(oldSales) paperclips.")
+        didSet {
+            print("Originally we sold \(oldValue) paperclips")
         }
-        /* didSet {
-         print("Originally, we sold \(oldValue) paperclips.")
-         } */
     }
     
-    var totalRevenue: Int {
+    var totalRevenue : Int {
         get {
             return (paperclipSales * paperclipCost) + getSecretRevenue()
         }
@@ -21,7 +23,7 @@ struct Office {
         }
     }
     
-    init(paperclipSales: Int) {
+    init(paperclipSales: Int){
         self.paperclipSales = paperclipSales
     }
     
@@ -34,7 +36,20 @@ struct Office {
     }
 }
 
+// Write your extension here:
+extension Office {
+    static func printCurrentRecord() {
+        print("The current record for paperclip sales is \(paperclipSalesRecord)")
+    }
+    
+    var paperclipColor: String {
+        return "gray"
+    }
+}
+
 var alphaOffice = Office(paperclipSales: 18)
 alphaOffice.totalRevenue = 400
-alphaOffice.printTotalRevenue()
 
+// Use the new methods and properties here:
+Office.printCurrentRecord()
+print("Alpha Office’s paperclips are \(alphaOffice.paperclipColor)")
